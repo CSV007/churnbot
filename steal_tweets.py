@@ -12,11 +12,12 @@ api = twitter.Api(consumer_key=keys.consumer_key,
 # print api.VerifyCredentials()
 
 """Pulls tweets from @shitbethsaid"""
-statuses = api.GetUserTimeline(screen_name="shitbethsaid")
+statuses = api.GetUserTimeline(screen_name="shitbethsaid", count=200)
 shit_beth_said_list = []
 for status in statuses:
     shit_beth_said_list.append(status.text)
 
-shit_beth_said_json = json.dumps(shit_beth_said_list)
-
-print shit_beth_said_json
+with open('shit_beth_said.json', 'w') as outfile:
+    json.dump(shit_beth_said_list, outfile)
+    print "saved to shit_beth_said.json"
+    print "number of tweets saved: ", str(len(shit_beth_said_list))
